@@ -76,6 +76,7 @@ libsodium_la_SOURCES = \
 	crypto_scalarmult/curve25519/scalarmult_curve25519.h \
 	crypto_secretbox/crypto_secretbox.c \
 	crypto_secretbox/crypto_secretbox_easy.c \
+	crypto_secretbox/xsalsa20crc32/secretbox_xsalsa20crc32.c \
 	crypto_secretbox/xsalsa20poly1305/secretbox_xsalsa20poly1305_api.c \
 	crypto_secretbox/xsalsa20poly1305/ref/box_xsalsa20poly1305.c \
 	crypto_shorthash/crypto_shorthash.c \
