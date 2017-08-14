@@ -5,6 +5,7 @@ EXTRA_DIST = \
 	pre.js.inc \
 	aead_aes256gcm.exp \
 	aead_chacha20poly1305.exp \
+	aead_xchacha20poly1305.exp \
 	auth.exp \
 	auth2.exp \
 	auth3.exp \
@@ -33,10 +34,15 @@ EXTRA_DIST = \
 	hash.exp \
 	hash2.exp \
 	hash3.exp \
+	kdf.exp \
+	keygen.exp \
+	kx.exp \
+	misuse.exp \
 	onetimeauth.exp \
 	onetimeauth2.exp \
 	onetimeauth7.exp \
 	pwhash.exp \
+	pwhash_argon2id.exp \
 	pwhash_scrypt.exp \
 	pwhash_scrypt_ll.exp \
 	randombytes.exp \
@@ -53,6 +59,7 @@ EXTRA_DIST = \
 	secretbox_easy2.exp \
 	shorthash.exp \
 	sign.exp \
+	siphashx24.exp \
 	sodium_core.exp \
 	sodium_utils.exp \
 	sodium_utils2.exp \
@@ -62,11 +69,13 @@ EXTRA_DIST = \
 	stream2.exp \
 	stream3.exp \
 	stream4.exp \
-	verify1.exp
+	verify1.exp \
+	xchacha20.exp
 
 DISTCLEANFILES = \
 	aead_aes256gcm.res \
 	aead_chacha20poly1305.res \
+	aead_xchacha20poly1305.res \
 	auth.res \
 	auth2.res \
 	auth3.res \
@@ -95,10 +104,15 @@ DISTCLEANFILES = \
 	hash.res \
 	hash2.res \
 	hash3.res \
+	kdf.res \
+	keygen.res \
+	kx.res \
+	misuse.res \
 	onetimeauth.res \
 	onetimeauth2.res \
 	onetimeauth7.res \
 	pwhash.res \
+	pwhash_argon2id.res \
 	pwhash_scrypt.res \
 	pwhash_scrypt_ll.res \
 	randombytes.res \
@@ -115,6 +129,7 @@ DISTCLEANFILES = \
 	secretbox_easy2.res \
 	shorthash.res \
 	sign.res \
+	siphashx24.res \
 	sodium_core.res \
 	sodium_utils.res \
 	sodium_utils2.res \
@@ -124,12 +139,14 @@ DISTCLEANFILES = \
 	stream2.res \
 	stream3.res \
 	stream4.res \
-	verify1.res
+	verify1.res \
+	xchacha20.res
 
 if NATIVECLIENT
 CLEANFILES = \
 	aead_aes256gcm.final \
 	aead_chacha20poly1305.final \
+	aead_xchacha20poly1305.final \
 	auth.final \
 	auth2.final \
 	auth3.final \
@@ -158,10 +175,15 @@ CLEANFILES = \
 	hash.final \
 	hash2.final \
 	hash3.final \
+	kdf.final \
+	keygen.final \
+	kx.final \
+	misuse.final \
 	onetimeauth.final \
 	onetimeauth2.final \
 	onetimeauth7.final \
 	pwhash.final \
+	pwhash_argon2id.final \
 	pwhash_scrypt.final \
 	pwhash_scrypt_ll.final \
 	randombytes.final \
@@ -178,6 +200,7 @@ CLEANFILES = \
 	secretbox_easy2.final \
 	shorthash.final \
 	sign.final \
+	siphashx24.final \
 	sodium_core.final \
 	sodium_utils.final \
 	sodium_version.final \
@@ -186,8 +209,10 @@ CLEANFILES = \
 	stream3.final \
 	stream4.final \
 	verify1.final \
+	xchacha20.final \
 	aead_aes256gcm.nexe \
 	aead_chacha20poly1305.nexe \
+	aead_xchacha20poly1305.nexe \
 	auth.nexe \
 	auth2.nexe \
 	auth3.nexe \
@@ -216,10 +241,15 @@ CLEANFILES = \
 	hash.nexe \
 	hash2.nexe \
 	hash3.nexe \
+	kdf.nexe \
+	keygen.nexe \
+	kx.nexe \
+	misuse.nexe \
 	onetimeauth.nexe \
 	onetimeauth2.nexe \
 	onetimeauth7.nexe \
 	pwhash.nexe \
+	pwhash_argon2id.nexe \
 	pwhash_scrypt.nexe \
 	pwhash_scrypt_ll.nexe \
 	randombytes.nexe \
@@ -236,6 +266,7 @@ CLEANFILES = \
 	secretbox_easy2.nexe \
 	shorthash.nexe \
 	sign.nexe \
+	siphashx24.nexe \
 	sodium_core.nexe \
 	sodium_utils.nexe \
 	sodium_version.nexe \
@@ -243,7 +274,8 @@ CLEANFILES = \
 	stream2.nexe \
 	stream3.nexe \
 	stream4.nexe \
-	verify1.nexe
+	verify1.nexe \
+	xchacha20.nexe
 endif
 
 AM_CPPFLAGS = \
@@ -259,6 +291,7 @@ AM_LDFLAGS = @TEST_LDFLAGS@
 TESTS_TARGETS = \
 	aead_aes256gcm \
 	aead_chacha20poly1305 \
+	aead_xchacha20poly1305 \
 	auth \
 	auth2 \
 	auth3 \
@@ -286,12 +319,15 @@ TESTS_TARGETS = \
 	generichash3 \
 	hash \
 	hash3 \
+	kdf \
+	keygen \
+	kx \
+	misuse \
 	onetimeauth \
 	onetimeauth2 \
 	onetimeauth7 \
 	pwhash \
-	pwhash_scrypt \
-	pwhash_scrypt_ll \
+	pwhash_argon2id \
 	randombytes \
 	scalarmult \
 	scalarmult2 \
@@ -335,6 +371,9 @@ aead_aes256gcm_LDADD                  = $(TESTS_LDADD)
 
 aead_chacha20poly1305_SOURCE          = cmptest.h aead_chacha20poly1305.c
 aead_chacha20poly1305_LDADD           = $(TESTS_LDADD)
+
+aead_xchacha20poly1305_SOURCE         = cmptest.h aead_xchacha20poly1305.c
+aead_xchacha20poly1305_LDADD          = $(TESTS_LDADD)
 
 auth_SOURCE               = cmptest.h auth.c
 auth_LDADD                = $(TESTS_LDADD)
@@ -417,6 +456,18 @@ hash_LDADD                = $(TESTS_LDADD)
 hash3_SOURCE              = cmptest.h hash3.c
 hash3_LDADD               = $(TESTS_LDADD)
 
+kdf_SOURCE                = cmptest.h kdf.c
+kdf_LDADD                 = $(TESTS_LDADD)
+
+keygen_SOURCE             = cmptest.h keygen.c
+keygen_LDADD              = $(TESTS_LDADD)
+
+kx_SOURCE                 = cmptest.h kx.c
+kx_LDADD                  = $(TESTS_LDADD)
+
+misuse_SOURCE             = cmptest.h misuse.c
+misuse_LDADD              = $(TESTS_LDADD)
+
 onetimeauth_SOURCE        = cmptest.h onetimeauth.c
 onetimeauth_LDADD         = $(TESTS_LDADD)
 
@@ -428,6 +479,9 @@ onetimeauth7_LDADD        = $(TESTS_LDADD)
 
 pwhash_SOURCE             = cmptest.h pwhash.c
 pwhash_LDADD              = $(TESTS_LDADD)
+
+pwhash_argon2id_SOURCE    = cmptest.h pwhash_argon2id.c
+pwhash_argon2id_LDADD     = $(TESTS_LDADD)
 
 pwhash_scrypt_SOURCE      = cmptest.h pwhash_scrypt.c
 pwhash_scrypt_LDADD       = $(TESTS_LDADD)
@@ -477,6 +531,9 @@ shorthash_LDADD           = $(TESTS_LDADD)
 sign_SOURCE               = cmptest.h sign.c
 sign_LDADD                = $(TESTS_LDADD)
 
+siphashx24_SOURCE         = cmptest.h siphashx24.c
+siphashx24_LDADD          = $(TESTS_LDADD)
+
 sodium_core_SOURCE        = cmptest.h sodium_core.c
 sodium_core_LDADD         = $(TESTS_LDADD)
 
@@ -506,6 +563,17 @@ stream4_LDADD             = $(TESTS_LDADD)
 
 verify1_SOURCE            = cmptest.h verify1.c
 verify1_LDADD             = $(TESTS_LDADD)
+
+xchacha20_SOURCE          = cmptest.h xchacha20.c
+xchacha20_LDADD           = $(TESTS_LDADD)
+
+if !MINIMAL
+TESTS_TARGETS += \
+	pwhash_scrypt \
+	pwhash_scrypt_ll \
+	siphashx24 \
+	xchacha20
+endif
 
 if NATIVECLIENT
 LOG_COMPILER = ./nacl-test-wrapper.sh

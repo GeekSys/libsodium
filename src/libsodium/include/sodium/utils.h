@@ -61,6 +61,22 @@ int sodium_hex2bin(unsigned char * const bin, const size_t bin_maxlen,
                    const char * const ignore, size_t * const bin_len,
                    const char ** const hex_end);
 
+#define sodium_base64_VARIANT_ORIGINAL            1
+#define sodium_base64_VARIANT_ORIGINAL_NO_PADDING 3
+#define sodium_base64_VARIANT_URLSAFE             5
+#define sodium_base64_VARIANT_URLSAFE_NO_PADDING  7
+
+SODIUM_EXPORT
+char *sodium_bin2base64(char * const b64, const size_t b64_maxlen,
+                        const unsigned char * const bin, const size_t bin_len,
+                        const int variant);
+
+SODIUM_EXPORT
+int sodium_base642bin(unsigned char * const bin, const size_t bin_maxlen,
+                      const char * const b64, const size_t b64_len,
+                      const char * const ignore, size_t * const bin_len,
+                      const char ** const b64_end, const int variant);
+
 SODIUM_EXPORT
 int sodium_mlock(void * const addr, const size_t len);
 
@@ -90,15 +106,14 @@ int sodium_munlock(void * const addr, const size_t len);
  *   a multiple of the required alignment. For this reason, these functions
  *   are designed to store data, such as secret keys and messages.
  *
- * sodium_malloc() can be used to allocate any libsodium data structure,
- * with the exception of crypto_generichash_state.
+ * sodium_malloc() can be used to allocate any libsodium data structure.
  *
  * The crypto_generichash_state structure is packed and its length is
  * either 357 or 361 bytes. For this reason, when using sodium_malloc() to
  * allocate a crypto_generichash_state structure, padding must be added in
- * order to ensure proper alignment:
- * state = sodium_malloc((crypto_generichash_statebytes() + (size_t) 63U)
- *                       & ~(size_t) 63U);
+ * order to ensure proper alignment. crypto_generichash_statebytes()
+ * returns the rounded up structure size, and should be prefered to sizeof():
+ * state = sodium_malloc(crypto_generichash_statebytes());
  */
 
 SODIUM_EXPORT
