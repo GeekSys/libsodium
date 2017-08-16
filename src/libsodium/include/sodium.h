@@ -36,6 +36,7 @@
 #include "sodium/crypto_secretbox.h"
 #include "sodium/crypto_secretbox_xsalsa20crc32.h"
 #include "sodium/crypto_secretbox_xsalsa20poly1305.h"
+#include "sodium/crypto_secretstream_xchacha20poly1305.h"
 #include "sodium/crypto_shorthash.h"
 #include "sodium/crypto_shorthash_siphash24.h"
 #include "sodium/crypto_sign.h"
